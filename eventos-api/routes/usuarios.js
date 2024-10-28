@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const mysql = require('mysql2');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 // Conexão com o banco de dados
 const db = mysql.createConnection({
