@@ -3,13 +3,13 @@ const bodyParser = require('body-parser');
 const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
 
-const usuariosRouter = require('./routes/usuarios'); // Importa as rotas de usuários
-const servicosRouter = require('./routes/servicos'); // Importa as rotas de serviços
-const pacotesRouter = require('./routes/pacotes'); // Importa as rotas de pacotes
-const eventosRouter = require("./routes/eventos");
-const reservasRouter = require('./routes/reservas');
-const itens_pacotesRouter = require("./routes/itens_pacotes");
-const fornecedoresRouter = require("./routes/fornecedores");
+const usuariosRouter = require('../routes/usuarios'); // Importa as rotas de usuários
+const servicosRouter = require('../routes/servicos'); // Importa as rotas de serviços
+const pacotesRouter = require('../routes/pacotes'); // Importa as rotas de pacotes
+const eventosRouter = require("../routes/eventos");
+const reservasRouter = require('../routes/reservas');
+const itens_pacotesRouter = require("../routes/itens_pacotes");
+const fornecedoresRouter = require("../routes/fornecedores");
 
 const app = express();
 const PORT = process.env.PORT || 3000; // Define a porta para o servidor
