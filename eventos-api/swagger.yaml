@@ -1,0 +1,1065 @@
+openapi: 3.0.0
+info:
+  title: API de Eventos
+  version: 1.0.0
+  description: Documentação da API para gerenciamento de eventos.
+servers:
+  - url: http://localhost:3000/api
+paths:
+  /usuarios:
+    get:
+      summary: Retorna todos os usuários
+      responses:
+        '200':
+          description: Lista de usuários
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    nome:
+                      type: string
+                    contato:
+                      type: string
+    post:
+      summary: Adiciona um novo usuário
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                contato:
+                  type: string
+      responses:
+        '201':
+          description: Usuário criado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  nome:
+                    type: string
+                  contato:
+                    type: string
+  /usuarios/{id}:
+    put:
+      summary: Atualiza um usuário existente
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                contato:
+                  type: string
+      responses:
+        '200':
+          description: Usuário atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  nome:
+                    type: string
+                  contato:
+                    type: string
+    delete:
+      summary: Exclui um usuário
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Usuário excluído com sucesso
+            /servicos:
+    get:
+      summary: Retorna todos os serviços
+      responses:
+        '200':
+          description: Lista de serviços
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    nome:
+                      type: string
+                    descricao:
+                      type: string
+                    preco:
+                      type: number
+                      format: float
+    post:
+      summary: Adiciona um novo serviço
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                descricao:
+                  type: string
+                preco:
+                  type: number
+                  format: float
+      responses:
+        '201':
+          description: Serviço criado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  nome:
+                    type: string
+                  descricao:
+                    type: string
+                  preco:
+                    type: number
+                    format: float
+
+  /servicos/{id}:
+    put:
+      summary: Atualiza um serviço existente
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                descricao:
+                  type: string
+                preco:
+                  type: number
+                  format: float
+      responses:
+        '200':
+          description: Serviço atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  nome:
+                    type: string
+                  descricao:
+                    type: string
+                  preco:
+                    type: number
+                    format: float
+        '404':
+          description: Serviço não encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+    delete:
+      summary: Exclui um serviço
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Serviço excluído com sucesso
+        '404':
+          description: Serviço não encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /reservas:
+    get:
+      summary: Retorna todas as reservas
+      responses:
+        '200':
+          description: Lista de reservas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    usuario_id:
+                      type: integer
+                    pacote_id:
+                      type: integer
+                    data_reserva:
+                      type: string
+                      format: date
+                    status:
+                      type: string
+
+    post:
+      summary: Adiciona uma nova reserva
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                usuario_id:
+                  type: integer
+                pacote_id:
+                  type: integer
+                data_reserva:
+                  type: string
+                  format: date
+                status:
+                  type: string
+      responses:
+        '201':
+          description: Reserva criada com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  usuario_id:
+                    type: integer
+                  pacote_id:
+                    type: integer
+                  data_reserva:
+                    type: string
+                    format: date
+                  status:
+                    type: string
+
+  /reservas/{id}:
+    get:
+      summary: Retorna uma reserva por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Detalhes da reserva
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  usuario_id:
+                    type: integer
+                  pacote_id:
+                    type: integer
+                  data_reserva:
+                    type: string
+                    format: date
+                  status:
+                    type: string
+        '404':
+          description: Reserva não encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+    put:
+      summary: Atualiza uma reserva existente
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                usuario_id:
+                  type: integer
+                pacote_id:
+                  type: integer
+                data_reserva:
+                  type: string
+                  format: date
+                status:
+                  type: string
+      responses:
+        '200':
+          description: Reserva atualizada com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: Reserva não encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+    delete:
+      summary: Exclui uma reserva
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Reserva deletada com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: Reserva não encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /pacotes:
+    get:
+      summary: Retorna todos os pacotes
+      responses:
+        '200':
+          description: Lista de pacotes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    nome:
+                      type: string
+                    usuario_id:
+                      type: integer
+                    evento_id:
+                      type: integer
+                    custo_total:
+                      type: number
+                      format: float
+
+    post:
+      summary: Adiciona um novo pacote
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                usuario_id:
+                  type: integer
+                evento_id:
+                  type: integer
+                custo_total:
+                  type: number
+                  format: float
+      responses:
+        '201':
+          description: Pacote criado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  nome:
+                    type: string
+                  usuario_id:
+                    type: integer
+                  evento_id:
+                    type: integer
+                  custo_total:
+                    type: number
+                    format: float
+
+  /pacotes/{id}:
+    get:
+      summary: Retorna um pacote por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Detalhes do pacote
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  nome:
+                    type: string
+                  usuario_id:
+                    type: integer
+                  evento_id:
+                    type: integer
+                  custo_total:
+                    type: number
+                    format: float
+        '404':
+          description: Pacote não encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+    put:
+      summary: Atualiza um pacote existente
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                usuario_id:
+                  type: integer
+                evento_id:
+                  type: integer
+                custo_total:
+                  type: number
+                  format: float
+      responses:
+        '200':
+          description: Pacote atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: Pacote não encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+    delete:
+      summary: Exclui um pacote
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Pacote deletado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: Pacote não encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /itens_pacotes:
+    get:
+      summary: Retorna todos os itens de pacotes
+      responses:
+        '200':
+          description: Lista de itens de pacotes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    pacote_id:
+                      type: integer
+                    servico_id:
+                      type: integer
+                    quantidade:
+                      type: integer
+
+    post:
+      summary: Adiciona um novo item a um pacote
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pacote_id:
+                  type: integer
+                servico_id:
+                  type: integer
+                quantidade:
+                  type: integer
+      responses:
+        '201':
+          description: Item de pacote criado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  pacote_id:
+                    type: integer
+                  servico_id:
+                    type: integer
+                  quantidade:
+                    type: integer
+
+  /itens_pacotes/{id}:
+    get:
+      summary: Retorna um item de pacote por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Detalhes do item de pacote
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  pacote_id:
+                    type: integer
+                  servico_id:
+                    type: integer
+                  quantidade:
+                    type: integer
+        '404':
+          description: Item de pacote não encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+    put:
+      summary: Atualiza um item de pacote existente
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pacote_id:
+                  type: integer
+                servico_id:
+                  type: integer
+                quantidade:
+                  type: integer
+      responses:
+        '200':
+          description: Item de pacote atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: Item de pacote não encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+    delete:
+      summary: Exclui um item de pacote
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Item de pacote deletado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: Item de pacote não encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /fornecedores:
+    get:
+      summary: Retorna todos os fornecedores
+      responses:
+        '200':
+          description: Lista de fornecedores
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    nome:
+                      type: string
+                    contato:
+                      type: string
+                    tipo_servico:
+                      type: string
+                    disponibilidade:
+                      type: string
+
+    post:
+      summary: Adiciona um novo fornecedor
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                contato:
+                  type: string
+                tipo_servico:
+                  type: string
+                disponibilidade:
+                  type: string
+      responses:
+        '201':
+          description: Fornecedor criado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  nome:
+                    type: string
+                  contato:
+                    type: string
+                  tipo_servico:
+                    type: string
+                  disponibilidade:
+                    type: string
+
+  /fornecedores/{id}:
+    get:
+      summary: Retorna um fornecedor por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Detalhes do fornecedor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  nome:
+                    type: string
+                  contato:
+                    type: string
+                  tipo_servico:
+                    type: string
+                  disponibilidade:
+                    type: string
+        '404':
+          description: Fornecedor não encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+    put:
+      summary: Atualiza um fornecedor existente
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                contato:
+                  type: string
+                tipo_servico:
+                  type: string
+                disponibilidade:
+                  type: string
+      responses:
+        '200':
+          description: Fornecedor atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: Fornecedor não encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+    delete:
+      summary: Exclui um fornecedor
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Fornecedor deletado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: Fornecedor não encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /eventos:
+    get:
+      summary: Retorna todos os eventos
+      responses:
+        '200':
+          description: Lista de eventos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    nome:
+                      type: string
+                    data:
+                      type: string
+                      format: date-time
+                    local:
+                      type: string
+                    usuario_id:
+                      type: integer
+
+    post:
+      summary: Adiciona um novo evento
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                data:
+                  type: string
+                  format: date-time
+                local:
+                  type: string
+                usuario_id:
+                  type: integer
+      responses:
+        '201':
+          description: Evento criado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  nome:
+                    type: string
+                  data:
+                    type: string
+                    format: date-time
+                  local:
+                    type: string
+                  usuario_id:
+                    type: integer
+
+  /eventos/{id}:
+    get:
+      summary: Retorna um evento por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Detalhes do evento
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  nome:
+                    type: string
+                  data:
+                    type: string
+                    format: date-time
+                  local:
+                    type: string
+                  usuario_id:
+                    type: integer
+        '404':
+          description: Evento não encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+    put:
+      summary: Atualiza um evento existente
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                data:
+                  type: string
+                  format: date-time
+                local:
+                  type: string
+                usuario_id:
+                  type: integer
+      responses:
+        '200':
+          description: Evento atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: Evento não encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+    delete:
+      summary: Exclui um evento
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Evento deletado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: Evento não encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
